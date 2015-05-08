@@ -1,0 +1,91 @@
+.weejsoneditor {
+    font-size: 11px;
+    line-height: 1;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.weejsoneditor input {
+    font-size: 11px;
+}
+
+.weejsoneditor.expanded .item {
+    display: block !important;
+}
+
+.weejsoneditor .property, .weejsoneditor .value {
+    border: 1px solid #efefef;
+    padding: 2px;
+    margin-right: 2px;
+}
+
+.weejsoneditor .value {
+    width: 600px;
+}
+.weejsoneditor .property {
+    width: 154px;
+}
+
+.weejsoneditor .editing {
+    border: 1px solid gray;
+    outline: none;
+}
+
+.weejsoneditor .item {
+    margin-top: 0px;
+}
+.weejsoneditor .item:last-child {
+    border-bottom: none;
+}
+
+.weejsoneditor .item > .item {
+    margin-left: 10px;
+    display: none;
+}
+
+.weejsoneditor .item.expanded > .item {
+    display: block;
+}
+
+.weejsoneditor .expander {
+    background: url("data:image/png;base64,R0lGODlhCwALAIAAAAAAAP///yH5BAAAAAAALAAAAAALAAsAAAIVhI8Wy6zd3gKRujpRjvg6C21hliQFADs=") no-repeat center center;
+    width: 15px;
+    height: 11px;
+    display: inline-block;
+    margin-left: -15px;
+    cursor: pointer;
+}
+.weejsoneditor .item.expanded > .expander {
+    background: url("data:image/png;base64,R0lGODlhCwALAIAAAAAAAP///yH5BAAAAAAALAAAAAALAAsAAAIUhI8Wy6zdHlxyvkTBdHqHCoFRQhYAOw==") no-repeat center center;
+}
+
+.weejsoneditor .modebutton {
+    background-color: #dedede;
+    cursor: pointer;
+    width: 40px;
+    padding: 2px;
+    margin-top: 2px;
+    margin-right: 2px;
+    display: inline-block;
+    text-align: center;
+}
+
+.weejsoneditor .item.appender {
+    background-color: #dedede;
+    cursor: pointer;
+    width: 40px;
+    padding: 2px;
+    margin-top: 2px;
+}
+.weejsoneditor .item.string > .value {
+    color: #009408;
+}
+.weejsoneditor .item.array > .value {
+    color: #2D5B89;
+}
+.weejsoneditor .item.object > .value {
+    color: #E17000;
+}
+.weejsoneditor .item.number > .value {
+    color: #497B8D;
+}
