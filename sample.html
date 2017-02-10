@@ -1,0 +1,35 @@
+<html>
+<head>
+	<title>dat.gui iterface</title>
+	
+	<div></div>
+</head>
+<body>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="weejsonedit.css">
+	<script src="jquery.weejsonedit.js" type="text/javascript"></script>
+
+	<script>
+		var data = [
+    {
+        "duration": 3,
+        "vars": {
+            "x": "+2000px"
+        }
+    },
+    {
+        "duration": "1",
+        "vars": {
+            "x": "0px",
+            "ease": "Bounce.easeOut"
+        }
+    }
+];
+$("div").weeJsonEditor(data);
+	</script>
+
+
+</body>
+</html>
