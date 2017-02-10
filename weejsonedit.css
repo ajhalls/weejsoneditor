@@ -1,8 +1,12 @@
 .weejsoneditor {
+    background-color: #498467;
     font-size: 11px;
     line-height: 1;
     margin-left: 10px;
     margin-bottom: 10px;
+    border-left: 18px solid #498467;
+    border-right: 3px solid #498467;
+    border-radius: 4.45px;
 }
 
 .weejsoneditor input {
@@ -20,10 +24,10 @@
 }
 
 .weejsoneditor .value {
-    width: 600px;
+    width: 200px;
 }
 .weejsoneditor .property {
-    width: 154px;
+    width: 70px;
 }
 
 .weejsoneditor .editing {
@@ -60,22 +64,24 @@
 }
 
 .weejsoneditor .modebutton {
-    background-color: #dedede;
+    background-color: #EDE084;
     cursor: pointer;
-    width: 40px;
     padding: 2px;
     margin-top: 2px;
     margin-right: 2px;
     display: inline-block;
     text-align: center;
+    border-radius: 4.45px;
 }
 
 .weejsoneditor .item.appender {
-    background-color: #dedede;
+    background-color: #EDE084;
     cursor: pointer;
-    width: 40px;
+    width: 100px;
     padding: 2px;
-    margin-top: 2px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 4.45px;
 }
 .weejsoneditor .item.string > .value {
     color: #009408;
