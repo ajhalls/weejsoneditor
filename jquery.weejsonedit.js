@@ -7,7 +7,8 @@
 
 // Derived from:
 // https://github.com/DavidDurman/FlexiJsonEditor
-
+// further updated to allow dynamic naming of arrays, and to prevent objects from 
+// showing on right. Add buttons also reference the object being added to.
 // Example:
 
 //     var myjson = { any: { json: { value: 1 } } };
@@ -39,9 +40,9 @@
         container.empty();
         
         var $modebtns = $('<div class="modebutton mode-edit">editor</div><div class="modebutton mode-text">text</div>');
-        var $editor = $('<div class="editor">');
+        var $editor = $('<div class="weejsoneditor">');
         var $raw = $('<textarea class="raw" style="display: none;">');
-
+        var parentItem;
         // style the parent container
         container.addClass("weejsoneditor");
 
@@ -190,12 +191,13 @@
         }
     }
 
-    function addListAppender(item, handler) {
+    function addListAppender(item, handler, parentItem) {
         var appender = $('<div>', {
             'class' : 'item appender'
         }), btn = $('<span></span>');
 
-        btn.text('[+] add');
+        //console.log(parentItem);
+        btn.text('[+] add to '+ parentItem);
 
         appender.append(btn);
         item.append(appender);
@@ -238,9 +240,9 @@
             var item = $('<div>', {
                 'class' : 'item',
                 'data-path' : path
-            }), property = $(opt.propertyElement || '<input>', {
+            }), property = $(opt.propertyElement || '<input class="left">', {
                 'class' : 'property'
-            }), value = $(opt.valueElement || '<input>', {
+            }), value = $(opt.valueElement || '<input class="right">', {
                 'class' : 'value'
             });
 
@@ -251,10 +253,12 @@
             item.append(property).append(value);
             root.append(item);
 
+            //this is where the form gets built with key value pairs
+            //right side (value)
+           
             property.val(key).attr('title', key);
             var val = stringify(json[key]);
             value.val(val).attr('title', val);
-
             assignType(item, json[key]);
 
             property.change(propertyChanged(opt));
@@ -262,17 +266,46 @@
             property.click(propertyClicked(opt));
 
             if (isObject(json[key]) || isArray(json[key])) {
+                console.log(json[key]);            
+                property.val(key).attr('title', key);
+                var val = "{ Object }";
+                value.val(val).attr('title', val);
+                console.log(value.val(val));
+                value.val(val)[0].disabled = true;
+            }  
+                        
+            parentItem = key;
+            if ( !isNaN(key)){
+                property.val(key).val("Tween-" + key);
+            }
+
+
+            if (isObject(json[key]) || isArray(json[key])) {
                 construct(opt, json[key], item, ( path ? path + '.' : '') + key);
             }
+
+            if (isObject(json[key]) || isArray(json[key])) {
+                
+                parentItem = key;
+                if ( !isNaN(key)){
+                    parentItem = "Tween-" + key;
+                }
+                addListAppender(root, function() {
+                    addNewValue(json);
+                    construct(opt, json, root, path);
+                    opt.onchange(parse(stringify(opt.original)));
+
+
+
+                }, parentItem)
+                
+            }  
+
+        
+
         }
 
-        if (isObject(json) || isArray(json)) {
-            addListAppender(root, function() {
-                addNewValue(json);
-                construct(opt, json, root, path);
-                opt.onchange(parse(stringify(opt.original)));
-            })
-        }
+
     }
 
     function updateParents(el, opt) {
