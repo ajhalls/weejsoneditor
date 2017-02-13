@@ -8,7 +8,10 @@
 // Derived from:
 // https://github.com/DavidDurman/FlexiJsonEditor
 // further updated to allow dynamic naming of arrays, and to prevent objects from 
-// showing on right. Add buttons also reference the object being added to.
+// showing on right, overflow looked ugly, made {Object} tag clickable. 
+// Add buttons also reference the object being added to.
+
+
 // Example:
 
 //     var myjson = { any: { json: { value: 1 } } };
@@ -242,7 +245,7 @@
                 'data-path' : path
             }), property = $(opt.propertyElement || '<input class="left">', {
                 'class' : 'property'
-            }), value = $(opt.valueElement || '<input class="right">', {
+            }), value = $(opt.valueElement || '<span><input class="right"></span>', {
                 'class' : 'value'
             });
 
@@ -258,22 +261,27 @@
            
             property.val(key).attr('title', key);
             var val = stringify(json[key]);
-            value.val(val).attr('title', val);
+            value.val(val).children().val( val);
+            
+               
             assignType(item, json[key]);
 
             property.change(propertyChanged(opt));
             value.change(valueChanged(opt));
             property.click(propertyClicked(opt));
 
-            if (isObject(json[key]) || isArray(json[key])) {
-                console.log(json[key]);            
+            if (isObject(json[key]) || isArray(json[key])) {         
                 property.val(key).attr('title', key);
-                var val = "{ Object }";
-                value.val(val).attr('title', val);
-                console.log(value.val(val));
-                value.val(val)[0].disabled = true;
+                var val = "{ Object }"; 
+                value.val(val).children().val(val);
+                value.val(val).children()[0].disabled = true;
+                item.children("span:last").append('<span class="expandLink" style="position:absolute;left:150px;height:20px;width:120px;z-index:999999"></span>');
+                $(".expandLink").unbind('click').click( function() {
+                var item = $(this).parent().parent();
+                item.toggleClass('expanded');
+            });
             }  
-                        
+
             parentItem = key;
             if ( !isNaN(key)){
                 property.val(key).val("Tween-" + key);
